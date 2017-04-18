@@ -1,0 +1,32 @@
+  version: "2"
+  services:
+    hubotdocker:
+     build: robo
+     depends_on:
+      - redis
+     volumes:
+      - hubot_home:/home/hubot
+     ports:
+      - "8080:8080"
+     container_name: hubot-robo
+     restart: always
+    redis:
+     image: redis
+     volumes:
+      - redis_data:/data
+      - redis_etc:/usr/local/etc/redis/
+     ports: [ "6379:6379" ]
+     container_name: redis
+     restart: always
+
+  volumes:
+    hubot_home:
+      external:
+        name: hubot_home
+    redis_data:
+      external:
+        name: redis_data
+    redis_etc:
+      external:
+       name: redis_etc
+
